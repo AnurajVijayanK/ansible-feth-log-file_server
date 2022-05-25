@@ -1,0 +1,22 @@
+---
+- hosts: AllserverPathing
+  remote_user: ansible
+  become: yes
+  tasks:
+  - name: Copy the /var/log/messages from the Source Machine to Ansible Controller
+    synchronize:
+      mode: pull
+      src: /var/log/messages
+      dest: "/tmp/server_logs/messages_{{ ansible_hostname }}.txt"
+
+  - name: Copy the files /var/log/lastlog the Source Machine to Ansible Controller
+    synchronize:
+      mode: pull
+      src: /var/log/lastlog
+      dest: "/tmp/server_logs/lastlog_{{ ansible_hostname }}.txt"
+
+  - name: Copy the files /var/log/secure the Source Machine to Ansible Controller
+    synchronize:
+      mode: pull
+      src: /var/log/secure
+      dest: "/tmp/server_logs/secure_{{ ansible_hostname }}.txt"
